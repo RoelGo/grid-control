@@ -75,11 +75,15 @@ def initialize_grid(ser, lock):
             # Check if the Grid responded with any data
             if response:
                 # Check for correct response (should be 0x21)
-                if response[0] == int("0x21", 16):
-                    print("Grid initialized")
+                if response[0] == int("0x20", 16):
+                    print("Grid v1 initialized")
                     return True
 
                 # Incorrect response received from the grid
+                elif response[0] == int("0x21", 16):
+                    print("Grid v2 initialized")
+                    return True
+
                 else:
                     helper.show_error("Problem initializing the Grid unit.\n\n"
                                       "Response 0x21 expected, got " + hex(ord(response)) + ".\n\n"
